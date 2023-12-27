@@ -46,4 +46,5 @@ pub trait ITaskManagerModel: DynClone + Send + Sync + Debug {
     async fn delete(&self, id: Id) -> Result<Json<Task>>;
 }
 
+// This is needed to be able to create a Box<dyn ITaskManagerModel>
 dyn_clone::clone_trait_object!(ITaskManagerModel);
