@@ -3,7 +3,7 @@ use serde_json::{json, Value};
 use tower_cookies::{Cookie, Cookies};
 
 use super::{ILoginApi, LoginPayload};
-use crate::common::{errors::Error, Result};
+use crate::common::{errors::Error, Result, AUTH_TOKEN};
 
 #[derive(Debug, Clone, Default)]
 pub struct MockLoginApi {}
@@ -17,10 +17,10 @@ impl ILoginApi for MockLoginApi {
     ) -> Result<Json<Value>> {
         let username = login_payload.username;
         let password = login_payload.password;
-        
+
         if username == "admin" && password == "admin" {
             match cookies {
-                Some(cookies) => cookies.add(Cookie::new("auth_token", "admin.exp.sign")),
+                Some(cookies) => cookies.add(Cookie::new(AUTH_TOKEN, "user-1.exp.sign")),
                 None => {}
             }
             Ok(Json(json!(

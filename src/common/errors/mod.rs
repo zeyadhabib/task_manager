@@ -4,7 +4,8 @@ use axum::response::IntoResponse;
 #[derive(Debug)]
 pub enum Error {
     LoginFailed,
-    InvalidToken,
+    AuthFailInvalidToken,
+    AuthFailNoAuthTokenCookie,
     TaskNotFound { id: u128 },
     TaskAlreadyExists { id: u128 },
 }
@@ -22,6 +23,14 @@ impl IntoResponse for Error {
         match self {
             Self::LoginFailed => {
                 (axum::http::StatusCode::UNAUTHORIZED, "LOGIN_FAILED").into_response()
+            }
+            Self::AuthFailNoAuthTokenCookie => {
+                (axum::http::StatusCode::UNAUTHORIZED, "AUTH_FAIL_NO_AUTH_TOKEN_COOKIE")
+                    .into_response()
+            }
+            Self::AuthFailInvalidToken => {
+                (axum::http::StatusCode::UNAUTHORIZED, "AUTH_FAIL_INVALID_AUTH_TOKEN_COOKIE")
+                    .into_response()
             }
             Self::TaskNotFound { id } => {
                 (axum::http::StatusCode::NOT_FOUND, format!("TASK_NOT_FOUND: {}", id))
