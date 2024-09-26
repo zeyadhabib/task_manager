@@ -3,7 +3,7 @@ pub mod mock_state;
 pub mod model_handler;
 
 use axum::Json;
-use dyn_clone::DynClone;
+// use dyn_clone::DynClone;
 use serde::{Deserialize, Serialize};
 use std::fmt::Debug;
 
@@ -38,7 +38,7 @@ pub struct UpdateTask {
 }
 
 #[async_trait::async_trait]
-pub trait ITaskManagerModel: DynClone + Send + Sync + Debug {
+pub trait ITaskManagerModel: Debug {
     async fn get_all(&self) -> Result<Vec<Task>>;
     async fn get(&self, id: Id) -> Result<Vec<Task>>;
     async fn create(&self, new_task: NewTask) -> Result<Json<Task>>;
@@ -46,4 +46,4 @@ pub trait ITaskManagerModel: DynClone + Send + Sync + Debug {
     async fn delete(&self, id: Id) -> Result<Json<Task>>;
 }
 
-dyn_clone::clone_trait_object!(ITaskManagerModel);
+// dyn_clone::clone_trait_object!(ITaskManagerModel);
