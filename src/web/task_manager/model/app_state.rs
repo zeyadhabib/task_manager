@@ -1,18 +1,21 @@
+use std::fmt::Debug;
+use std::sync::Arc;
+
 use axum::Json;
 
 use super::mock_state::MockTaskManagerModel;
 use crate::common::{Id, Result};
 use crate::web::task_manager::model::{ITaskManagerModel, NewTask, Task, UpdateTask};
 
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug)]
 pub struct AppState {
-    pub task_manager_model: Box<dyn ITaskManagerModel>,
+    pub task_manager_model: Arc<dyn ITaskManagerModel + Send + Sync>,
 }
 
 impl AppState {
     pub fn new() -> Self {
         Self {
-            task_manager_model: Box::new(MockTaskManagerModel::default()),
+            task_manager_model: Arc::new(MockTaskManagerModel::default()),
         }
     }
 }
