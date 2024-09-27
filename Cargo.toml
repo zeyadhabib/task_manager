@@ -19,3 +19,5 @@ tower-cookies = "0.10.0"
 [dev-dependencies]
 anyhow = "1.0.89"
 httpc-test = "0.1.10"
+anyhow = "1.0.89"
+httpc-test = "0.1.10"
