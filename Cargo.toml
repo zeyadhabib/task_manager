@@ -7,8 +7,8 @@ edition = "2021"
 
 [dependencies]
 async-trait = "0.1.83"
-axum = "0.7.6"
-axum-core = "0.4.4"
+axum = "0.7.7"
+axum-core = "0.4.5"
 dyn-clone = "1.0.17"
 lazy-regex = "3.3.0"
 serde = { version = "1.0.210", features = ["derive"] }
